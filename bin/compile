@@ -15,12 +15,7 @@ fi
 
 cd $1
 
-while read url; do
-  if [ -n "$url" ]; then # incase ensure_newline_at_eof_on_save is enabled
-    echo Vendoring $url | indent
-    curl -L --silent $url | tar xz
-  fi
-done < .vendor_urls
+echo Adding taglib to env variables | indent
 
 # Borrowed code from taglib buildpack
 BUILD_DIR=$1
@@ -28,3 +23,10 @@ PROFILE_PATH="$BUILD_DIR/.profile.d/taglib.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:vendor/taglib/bin"' >> $PROFILE_PATH
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:vendor/taglib/lib"' >> $PROFILE_PATH
+
+while read url; do
+  if [ -n "$url" ]; then # incase ensure_newline_at_eof_on_save is enabled
+    echo Vendoring $url | indent
+    curl -L --silent $url | tar xz
+  fi
+done < .vendor_urls
