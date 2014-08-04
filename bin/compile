@@ -19,6 +19,7 @@ while read url; do
   if [ -n "$url" ]; then # incase ensure_newline_at_eof_on_save is enabled
     echo Vendoring $url | indent
     curl -L --silent $url | tar xz
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:vendor/taglib/lib"
+    echo 'export PATH="$PATH:vendor/taglib/bin"' >> $PROFILE_PATH
+    echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:vendor/taglib/lib"' >> $PROFILE_PATH
   fi
 done < .vendor_urls
