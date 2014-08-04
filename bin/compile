@@ -19,6 +19,8 @@ echo Adding taglib to env variables | indent
 
 # Borrowed code from taglib buildpack
 BUILD_DIR=$1
+VENDOR_DIR="vendor"
+mkdir -p $VENDOR_DIR
 PROFILE_PATH="$BUILD_DIR/.profile.d/taglib.sh"
 mkdir -p $(dirname $PROFILE_PATH)
 echo 'export PATH="$PATH:vendor/taglib/bin"' >> $PROFILE_PATH
